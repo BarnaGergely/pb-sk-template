@@ -10,12 +10,17 @@ You need to configure the database on the Pocketbase web dashboard and write the
 
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
+By default all the scripts are set up for Windows development and Linux production builds, but you can customize it. Everything is cross platform.
+
 ### Setup development enviroment
 
 1. Install NodeJS on your system
 2. Clone the repository to you local system
-3. Run `TODO` to download the latest PocketBase prebuilt binary
-4. Run `npm install` to install the frontend's dependencies.
+3. In case of your development OS being Linux
+    2. Install powershell: `sudo apt-get install powershell`
+    1. Customize the `scripts` section in `package.json`
+4. Run `npm run pocketbase:install` to download the latest Windows PocketBase prebuilt binary or `npm run pocketbase:update` to update it.
+5. Run `npm install` to install the frontend's dependencies.
 
 ### Run Svelte development server
 
@@ -29,25 +34,29 @@ npm run dev -- --open
 ### Run PocketBase backend with the Svelte Frontend
 
 1. Run `npm run build` to give the backend the prebuit Svelte frontend if you want to host the frontend and the backend in the same time
-2. Run `TODO` to start the pocketbase
+2. Run `npm run pocketbase:start` to start the pocketbase
 
 ## Building for production
 
-To create a production version of your app:
+To build a production (release) version of your app:
 
 ```sh
-npm run build && TODO
+npm run build:release
 ```
+The ready to use Linux app would be located in the `build` directory
 
 ## Going to production
 
+When you're ready to deploy your application:
+
+1. build a production version of your app: `npm run build:release`
+2. Compress the content of the `build` directory to a zip file
+3. Upload it to your server
+4. Unzip it
+5. Start it with `./pocketbase serve`
+
+You can find other necessary instructions on the [official PocketBase documentation's Going to Production page](https://pocketbase.io/docs/going-to-production/).
 
 ### Hosting providers
 
-### Release Building
-
-### Deployment
-
-### More
-
-You can find more detailed instructions on the [official PocketBase documentation's Going to Production page](https://pocketbase.io/docs/going-to-production/).
+TODO
