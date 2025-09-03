@@ -2,6 +2,8 @@
 # If the OverwriteExisting is turned off and the OutputDir already contains pocketbase file, show an error
 
 param(
+    [ValidateSet('windows','linux')]
+    [string]$Platform = "windows",
     [string]$OutputDir = "build",
     [switch]$OverwriteExisting = $false
 )
@@ -23,7 +25,7 @@ if (-not (Test-Path -Path $OutputDir)) {
 }
 
 # Check for existing pocketbase executable(s)
-$exePath = Join-Path $OutputDir 'pocketbase.exe'
+$exePath = Join-Path $OutputDir 'pocketbase'
 $binPath = Join-Path $OutputDir 'pocketbase'
 if ((Test-Path $exePath -PathType Leaf) -or (Test-Path $binPath -PathType Leaf)) {
     if (-not $OverwriteExisting) {
@@ -44,15 +46,19 @@ catch {
     Write-ErrorAndExit "Failed to query GitHub releases: $_"
 }
 
-# Prefer a Windows zip asset if available, otherwise pick the first .zip
+# Prefer a platform-specific zip asset
 $zipAssets = @($release.assets | Where-Object { $_.name -match '\.zip$' })
 if ($zipAssets.Count -eq 0) {
     Write-ErrorAndExit "No .zip assets found in latest PocketBase release."
 }
 
-$asset = $null
-$asset = $zipAssets | Where-Object { $_.name -match 'windows' -or $_.name -match 'win' } | Select-Object -First 1
-if (-not $asset) { $asset = $zipAssets[0] }
+$archToken = if ($Platform -eq 'windows') { 'windows_amd64' } else { 'linux_amd64' }
+
+# look for exact arch token in asset name (case-insensitive)
+$asset = $zipAssets | Where-Object { $_.name -match [regex]::Escape($archToken) } | Select-Object -First 1
+if (-not $asset) {
+    Write-ErrorAndExit "Couldn't find a PocketBase .zip for platform '$Platform' (looking for '$archToken') in the latest release."
+}
 
 if (-not $asset -or -not $asset.browser_download_url) {
     Write-ErrorAndExit "Couldn't determine a download URL for the PocketBase zip asset."
