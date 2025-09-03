@@ -7,7 +7,7 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"build:release": "npm run build -- --mode production && npm run pocketbase:install -- -Platform linux",
-		"pocketbase:install": "powershell -ExecutionPolicy Bypass -File scripts/pocketbase-download.ps1 -- -Version latest",
+		"pocketbase:install": "powershell -ExecutionPolicy Bypass -File scripts/pocketbase-download.ps1 -Version latest",
 		"pocketbase:update": "npm run pocketbase:install -- -OverwriteExisting",
 		"pocketbase:start": "powershell -ExecutionPolicy Bypass -File scripts/pocketbase-start.ps1",
 		"preview": "vite preview",
