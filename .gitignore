@@ -6,7 +6,15 @@ node_modules
 .netlify
 .wrangler
 /.svelte-kit
-/build
+
+# Vite (Svelte) build folder
+pb_public
+
+# PocketBase
+build/pocketbase*
+build/robots.txt
+build/LICENSE.md
+build/CHANGELOG.md
 
 # OS
 .DS_Store
