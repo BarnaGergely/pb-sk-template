@@ -12,6 +12,32 @@ Everything you need to build a Svelte project, powered by [`sv`](https://github.
 
 By default all the scripts are set up for Windows development and Linux production builds, but you can customize it. Everything is cross platform.
 
+### Folder structure
+
+```plaintext
+┌── lib/
+│   ├── components/
+│   ├── models/
+│   ├── types/
+├── routes/
+│   ├── (public)/
+│   │   ├── moduleA
+│   │   │   ├── components/
+│   │   │   ├── models/
+│   │   │   ├── types/
+│   │   │   ├── +page.server.ts
+│   │   │   ├── +page.svelte
+│   │   ├── moduleB/
+│   │   │   ├── components/
+│   │   │   ├── models/
+│   │   │   ├── types/
+│   │   │   ├── +page.server.ts
+│   │   │   ├── +page.svelte
+|   ├── (artist)/
+|   ├── (organizations)/
+|   ├── (admin)/
+```
+
 ### Setup development enviroment
 
 1. Install NodeJS on your system

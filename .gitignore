@@ -16,6 +16,9 @@ build/robots.txt
 build/LICENSE.md
 build/CHANGELOG.md
 
+# IDEs
+.vs
+
 # OS
 .DS_Store
 Thumbs.db
