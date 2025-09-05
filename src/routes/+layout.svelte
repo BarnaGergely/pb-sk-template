@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import Nav from '$lib/components/nav.svelte';
+	import Siteframe from '$lib/components/site-frame/siteframe.svelte';
 
 	let { children } = $props();
 </script>
@@ -10,6 +10,6 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<Nav />
-
-{@render children?.()}
+<Siteframe>
+	{@render children?.()}
+</Siteframe>
